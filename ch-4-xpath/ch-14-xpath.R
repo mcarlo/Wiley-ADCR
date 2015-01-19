@@ -24,7 +24,8 @@ xpathSApply(parsed_doc, "/html/body/div/*/i")
 xpathSApply(parsed_doc, "//title/..")
 xpathSApply(parsed_doc, "//address | //title")
 
-twoQueries <- c(address = "//address", title = "//title")xpathSApply(parsed_doc, twoQueries)
+twoQueries <- c(address = "//address", title = "//title")
+xpathSApply(parsed_doc, twoQueries)
 
 
 ### 4.2.2 Node relations
@@ -77,7 +78,8 @@ xpathSApply(parsed_doc, "//div//i", fun = lowerCaseFun)
 
 
 #Extract a string formatted like a year from a node's value
-dateFun <- function(x) {    require(stringr)
+dateFun <- function(x) {
+    require(stringr)
     date <- xmlGetAttr(node = x, name = "date")
     year <- str_extract(date, "[0-9]{4}")
     return(year)
@@ -106,10 +108,12 @@ getClose <- function(node) {
 	value <- xmlValue(node)
 	company <- xmlName(xmlParent(node))
 	mat <- c(company = company, value = value)
-	return(mat)}
+	return(mat)
+}
 
-as.data.frame(t(xpathSApply(parsed_stocks, expQuery, getClose))
-stocks$value <- as.numeric(as.character(stocks$value))head(stocks, 3)
+stocks <- as.data.frame(t(xpathSApply(parsed_stocks, expQuery, getClose)))
+stocks$value <- as.numeric(as.character(stocks$value))
+head(stocks, 3)
 
 
 ### XML namespaces
